@@ -20,8 +20,8 @@ class ValidateProfile {
       const { error } = await schema.validate(req.body);
       console.log(error);
       if (error) {
-        let message = "Please enter valid Email Id";
-        return clientError(req, res, message);
+        // let message = "Please enter valid Email Id";
+        return clientError(req, res, error.message);
       }
       return next();
     } catch (error) {

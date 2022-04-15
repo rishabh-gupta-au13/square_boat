@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rishabh-gupta-au13/square_boat#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express.Router();
 // const {validateJwtToken}=require("../../middleware/auth/verifyJwtToken");
-// const profileController=require("../../services/profile/profile");
+const profileController=require("../../services/profile/profile");
 // const uploadToAzure=require("../../utilities/fileHandler");
 const profileValidator=require("../../middleware/validation/profile/profile")
 // app.post('/uploadProfile',validateJwtToken,uploadToAzure.single('file'),profileController.uploadProfile);
@@ -13,6 +13,6 @@ app.get('/check',(req,res)=>{
         'message':"This is test api "
     })
 })
-app.get('/signup',profileValidator.validateCredentials,)
+app.post('/signup',profileValidator.validateCredentials,profileController.signUp)
 
 module.exports = app;

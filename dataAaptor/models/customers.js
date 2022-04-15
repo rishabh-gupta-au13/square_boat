@@ -31,7 +31,7 @@ customers.index({
   'name': 1,
   'email': 1,
   'password': 1,
-  'mobileNumber': 1,
+  'mobileNumber': 1
 });
 
 // exporting the entire module
