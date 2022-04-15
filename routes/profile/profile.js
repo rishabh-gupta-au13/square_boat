@@ -13,6 +13,7 @@ app.get('/check',(req,res)=>{
         'message':"This is test api "
     })
 })
-app.post('/signup',profileValidator.validateCredentials,profileController.signUp)
+app.post('/signup',profileValidator.validateCredentials,profileController.signUp);
+app.get('/login',profileValidator.validateLoginCredentials,profileController.login);
 
 module.exports = app;

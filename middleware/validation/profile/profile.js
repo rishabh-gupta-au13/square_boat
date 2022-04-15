@@ -28,6 +28,26 @@ class ValidateProfile {
       return serverError(req, res, error);
     }
   }
+  async validateLoginCredentials(req,res,next){
+    const schema = Joi.object().keys({
+      email: Joi.string()
+        .regex(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/)
+        .required(),
+      password: Joi.string().required(),
+     
+    });
+    try {
+      const { error } = await schema.validate(req.body);
+      console.log(error);
+      if (error) {
+        return clientError(req, res, error.message);
+      }
+      return next();
+    } catch (error) {
+      return serverError(req, res, error);
+    }
+
+  }
 }
 
 module.exports = new ValidateProfile();
