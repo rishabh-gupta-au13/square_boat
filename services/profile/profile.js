@@ -5,7 +5,8 @@ const {
   } = require("../../utilities/response");
   const profileQuery=require("../../dataAaptor/query/profileQuery");
   const bcrypt=require("bcrypt");
-  const jwt=require("jsonwebtoken")
+  const jwt=require("jsonwebtoken");
+  const appConfig=require("../../configs/app.json")
 //   const get_userId=require("../../utilities/helper");
   const { errorMessages } = require("../error");
   class profileController {
@@ -51,6 +52,17 @@ const {
             let message=errorMessages.invalidPassword;
             return clientError(req,res,message)
         }
+        // if the paswword is coreect will genrate json web token 
+        const token=jwt.sign(
+            {userId:checkEmail[0]._id},
+            appConfig.jwtSecret,
+            {expiresIn:"1h"}
+        )
+        let result={
+            message:"Login Sucessfully",
+            token:token,
+        };
+        return reply(req,res,result)
 
 
 
