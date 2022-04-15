@@ -30,6 +30,15 @@ class profileQuery {
       throw new Error(err.message);
     }
   }
+  async check_Email(email){
+      try{
+          let checkEmail=await customerModel.find({email})
+          return checkEmail
+      }catch(err){
+          console.log(err)
+          throw new Error(err.message);
+      }
+  }
 }
 
 module.exports = new profileQuery();

@@ -5,6 +5,7 @@ const {
   } = require("../../utilities/response");
   const profileQuery=require("../../dataAaptor/query/profileQuery");
   const bcrypt=require("bcrypt");
+  const jwt=require("jsonwebtoken")
 //   const get_userId=require("../../utilities/helper");
   const { errorMessages } = require("../error");
   class profileController {
@@ -34,25 +35,32 @@ const {
               return serverError(req,res,err)
           }
       }
+
+      async login(req,res){
+          try{
+          const {email,password}=req.body;
+        //   first we will check whether email exist in our database or not if it will not exist will throw the error
+        const checkEmail=await profileQuery.check_Email(email);
+        if(checkEmail.length==0){
+            let message=errorMessages.emailNotFound
+            return clientError(req,res,message)
+        }
+        // if email is present, verify the passowrd
+        let validPassword=await bcrypt.compare(password,checkEmail[0].password);
+        if(!validPassword){
+            let message=errorMessages.invalidPassword;
+            return clientError(req,res,message)
+        }
+
+
+
+          }catch(err){
+              console.log(err)
+              return serverError(req,res,err)
+          }
+      }
     
-    async updateEmail(req,res){
-      try{
-      const token=req.headers.authorization;
-      const email=req.body.email;
-      const userId=await get_userId.extractUserId(token);
-      const updateEmail=await profileQuery.updateEmail(userId.userId,email)
-      const message=errorMessages.emailNotUpdated
-      if(updateEmail){
-        return reply(req,res,"Email Updated SucessFully")
-      }
-  
-      return serverError(req,res,message)
-      
-      }catch(err){
-        return serverError(req,res,err)
-      }
-  
-    }
+    
   
   }
   
