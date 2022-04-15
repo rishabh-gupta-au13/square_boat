@@ -3,7 +3,7 @@
 const clientError = (req, res, error) => {
   let response = {
     status: 400,
-    error: "Client Error"
+    error: error
   };
   return res.send(response);
 };
@@ -12,7 +12,7 @@ const serverError = (req, res, error) => {
 
   let response = {
     status: 500,
-    error: "Internal Server Error "
+    error:error
   };
   return res.send(response);
 };
