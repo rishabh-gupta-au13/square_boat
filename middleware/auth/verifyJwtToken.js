@@ -23,10 +23,17 @@ function validateJwtToken(req,res,next){
 
             })
 
+        }else{
+            let message="Token Required";
+            return clientError(req,res,message)
         }
 
     }catch(err){
-        
+        console.log(err)
+        return clientError(req,res,error)  
     }
    
+}
+module.exports={
+    validateJwtToken:validateJwtToken
 }
