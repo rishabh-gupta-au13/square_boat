@@ -6,6 +6,7 @@ const orderController=require("../../services/order/order");
 const profileValidator=require("../../middleware/validation/order/order");
 
 app.post("/placeOrder",validateJwtToken,orderController.placeOrder)
+app.get("/trackOrder",validateJwtToken,orderController.trackOrder)
 
 
 

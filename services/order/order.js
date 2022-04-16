@@ -36,6 +36,22 @@ const {
               return serverError(req,res,err)
           }
       }
+      async trackOrder(req,res){
+          try{
+          const token=req.headers.authorization;
+          const userId=await get_userId.extractUserId(token)
+          let orderId=req.query.orderId
+        //   Now check in the collection with userid whether the combination of userid is present or nor
+        const trackOrderId=await orderQuery.track_Order(userId.userId,orderId);
+        if(trackOrderId.length==0){
+            let message=errorMessages.notcorrectOrderId
+            return clientError(req,res,message)
+        }
+    }catch(err){
+        console.log(err)
+        return serrverError(req,res,err)
+    }
+      }
     
     
   
