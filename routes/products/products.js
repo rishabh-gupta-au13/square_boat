@@ -8,7 +8,7 @@ const productController=require("../../services/product/product");
 // app.post('/updateEmail',validateJwtToken,profileValidator.validateEmail,profileController.updateEmail);
 
 // Display alll the products
-app.get("/allProducts",validateJwtToken,)
+app.get("/allProducts",validateJwtToken,productController.fetchProducts)
 
 
 module.exports = app;

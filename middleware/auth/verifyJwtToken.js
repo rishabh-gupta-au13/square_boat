@@ -1,12 +1,11 @@
 const jwt=require("jsonwebtoken");
 const appConfig=require("../../configs/app.json");
 const {clientError}=require("../../utilities/response");
-const appConfig=require("../../configs/app.json");
 const userModel=require("../../dataAaptor/models/customers")
 
 
 
-function validateJwtToken(req,res,next){
+async function validateJwtToken(req,res,next){
     try{
         const token=req.headers.authorization;
         if(token){

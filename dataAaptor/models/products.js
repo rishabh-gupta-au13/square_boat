@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // schema
-const customers = new Schema({
+const products = new Schema({
 
 productTitle:{
     type:String,
@@ -27,7 +27,7 @@ productCategory:{
 }
 },{timestamps:true});
 
-customers.index({
+products.index({
   'productTitle': 1,
   'productPrice': 1,
 });

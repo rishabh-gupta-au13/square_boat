@@ -1,4 +1,4 @@
-const productModel = require("../models/product");
+const productModel = require("../models/products");
 class productQuery {
     async fetchProducts(){
         const product=await productModel.find({})

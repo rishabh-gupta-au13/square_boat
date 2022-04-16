@@ -8,7 +8,7 @@ const {
   const { errorMessages } = require("../error");
   class productController {
       
-      async fetchProduct(req,res){
+      async fetchProducts(req,res){
           try{
             //   fetch all the products
             const getProducts=await productQuery.fetchProducts();
@@ -23,4 +23,4 @@ const {
   
   }
   
-  module.exports = new profileController()
+  module.exports = new productController()
