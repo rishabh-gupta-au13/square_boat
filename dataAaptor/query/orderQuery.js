@@ -1,6 +1,6 @@
 const orderModel = require("../models/order");
 const mongoose=require('mongoose')
-// const ObjectId=require('mongoose').ObjectId
+const ObjectId=require('mongoose').ObjectId
 
 class orderQuery {
   async place_Order(productDetails) {
@@ -41,7 +41,22 @@ class orderQuery {
     return [];
   }
   async fetchOrder(userId){
-      const fetchAllorders=await orderModel.find({customerId:userId})
+      // const fetchAllorders=await orderModel.find({customerId:userId})
+      console.log(userId,"this is userId")
+      const fetchAllorders=await orderModel.aggregate([
+        {$match:{customerId: mongoose.Types.ObjectId(userId)}},
+        {$lookup:{
+          from:"products",
+          localField:"productDetails.productId",
+          foreignField:"_id",
+          as:"productDetailsadditional"
+      }},
+      {$project:{"productsDetails.productId":1,"isOrderPlaced":1,"totalInvoice":1,"createdAt":1,"productDetailsadditional.productTitle":1}},
+      // {$unwind:"productsDetailsadditional.$.productTitle"}
+      
+        
+      ])
+      console.log(fetchAllorders,"thid is all orders")
       return fetchAllorders
   }
   async placed_order(userId,productId,productPrice){
