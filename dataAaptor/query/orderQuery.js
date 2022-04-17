@@ -41,7 +41,20 @@ class orderQuery {
     return [];
   }
   async fetchOrder(userId){
-      const fetchAllorders=await orderModel.find({customerId:userId})
+      // const fetchAllorders=await orderModel.find({customerId:userId})
+      const fetchAllorders=await orderModel.aggregate([
+        {$match:{customerId: mongoose.Types.ObjectId(userId)}},
+        {$lookup:{
+          from:"products",
+          localField:"productDetails.productId",
+          foreignField:"_id",
+          as:"productDetailsadditional"
+      }},
+      {$project:{"productsDetails.productId":1,"isOrderPlaced":1,"totalInvoice":1,"createdAt":1,"productDetailsadditional.productTitle":1}},
+      // {$unwind:"productsDetailsadditional.$.productTitle"}
+      
+        
+      ])
       return fetchAllorders
   }
   async placed_order(userId,productId,productPrice){
