@@ -40,6 +40,10 @@ class orderQuery {
    
     return [];
   }
+  async fetchOrder(userId){
+      const fetchAllorders=await orderModel.find({customerId:userId})
+      return fetchAllorders
+  }
 }
 
 module.exports = new orderQuery();

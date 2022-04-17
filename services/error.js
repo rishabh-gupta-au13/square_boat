@@ -4,7 +4,8 @@ let errorMessages = {
     alreadyExist:"Email or Phone Already Exist",
     emailNotFound:"Email Not Found ! Please Signup ",
     invalidPassword:"Invalid Credentials",
-    notcorrectOrderId:"Order Id Not Found"
+    notcorrectOrderId:"Order Id Not Found",
+    noOrderExists:"Orders Not Found"
 
 };
 module.exports = {

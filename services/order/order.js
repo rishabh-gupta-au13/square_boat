@@ -49,6 +49,18 @@ class orderController {
       return serverError(req, res, err);
     }
   }
+  async getAllorder(req,res){
+      let token=req.headers.authorization;
+      let userId=await get_userId.extractUserId(token);
+    //   Now fetch all the orders with this user id
+    let fetchallorders=await orderQuery.fetchOrder(userId.userId)
+    if(fetchallorders.lenght==0){
+        let message=errorMessages.noOrderExists;
+        return reply(req,res,message)
+    }
+    
+    return reply(req,res,fetchallorders)
+  }
 }
 
 module.exports = new orderController();

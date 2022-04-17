@@ -5,8 +5,9 @@ const orderController=require("../../services/order/order");
 // const uploadToAzure=require("../../utilities/fileHandler");
 const profileValidator=require("../../middleware/validation/order/order");
 
-app.post("/placeOrder",validateJwtToken,orderController.placeOrder)
-app.get("/trackOrder",validateJwtToken,orderController.trackOrder)
+app.post("/placeOrder",validateJwtToken,orderController.placeOrder);
+app.get("/trackOrder",validateJwtToken,orderController.trackOrder);
+app.get("/allOrders",validateJwtToken,orderController.getAllorder);
 
 
 
