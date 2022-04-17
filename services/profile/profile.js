@@ -39,7 +39,8 @@ const {
 
       async login(req,res){
           try{
-          const {email,password}=req.body;
+          const email=req.query.email;
+          const password=req.query.password
         //   first we will check whether email exist in our database or not if it will not exist will throw the error
         const checkEmail=await profileQuery.check_Email(email);
         if(checkEmail.length==0){

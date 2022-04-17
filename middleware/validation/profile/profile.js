@@ -37,7 +37,7 @@ class ValidateProfile {
      
     });
     try {
-      const { error } = await schema.validate(req.body);
+      const { error } = await schema.validate(req.query);
       console.log(error);
       if (error) {
         return clientError(req, res, error.message);
