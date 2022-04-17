@@ -1,4 +1,6 @@
 const orderModel = require("../models/order");
+const mongoose=require('mongoose')
+const ObjectId=require('mongoose').ObjectId
 
 class orderQuery {
   async place_Order(productDetails) {
@@ -13,7 +15,7 @@ class orderQuery {
       console.log(err);
     }
   }
-  async saveOrders(userId, orderId, price, productDetails) {
+  async saveOrders(userId,price, productDetails) {
     try {
       const order = new orderModel({
         customerId: userId,
@@ -27,10 +29,16 @@ class orderQuery {
     }
   }
   async track_Order(userId, orderId) {
-    const trackOrder = await orderModel.find({
-      $and: [{ customerId: userId }, { _id: orderId }],
-    });
-    return trackOrder;
+    const check1=mongoose.Types.ObjectId.isValid(orderId);
+    if(check1){
+        const trackOrder = await orderModel.find({
+            $and: [{ customerId: userId }, { _id: orderId }],
+          });
+          console.log(trackOrder,"============================================")
+          return trackOrder
+    }
+   
+    return [];
   }
 }
 

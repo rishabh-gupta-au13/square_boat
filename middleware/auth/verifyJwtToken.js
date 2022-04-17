@@ -29,7 +29,7 @@ async function validateJwtToken(req,res,next){
 
     }catch(err){
         console.log(err)
-        return clientError(req,res,error)  
+        return clientError(req,res,err)  
     }
    
 }
