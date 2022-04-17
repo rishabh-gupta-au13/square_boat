@@ -18,6 +18,23 @@ const {
               return serverError(req,res,err)
           }
       }
+      async addProducts(req,res){
+          try{
+          let {productTitle,description,productPrice,productCategory}=req.body;
+          let addProductInventory=await productQuery.addProductsi(productTitle,description,productPrice,productCategory);
+          if(addProductInventory.length ==0){
+              return clientError(req,res,"Product Can Not Be Added")
+          }
+          let message={
+              message:"Product Added Successfully",
+              product:addProductInventory
+          }
+          return reply(req,res,message)
+        }catch(err){
+            console.log(err)
+            return serverError(req,res,err)
+        }
+      }
     
     
   

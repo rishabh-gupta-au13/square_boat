@@ -64,6 +64,9 @@ class orderQuery {
       }
 
   }
+  async getOrrder(orderId){
+      let getorderForcustomer=await orderModel.find({_id})
+  }
 }
 
 module.exports = new orderQuery();

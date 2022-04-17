@@ -87,6 +87,10 @@ class orderController {
       return serverError(req, res, err);
     }
   }
+  async searchByOrderId(req,res){
+      let orderId=req.query.orderId
+      let getOrder=await orderQuery.getOrrder(orderId)
+  }
 }
 
 module.exports = new orderController();

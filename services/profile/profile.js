@@ -61,7 +61,9 @@ const {
         )
         let result={
             message:"Login Sucessfully",
+            user:checkEmail,
             token:token,
+            
         };
         return reply(req,res,result)
 
