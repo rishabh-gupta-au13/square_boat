@@ -42,7 +42,6 @@ class orderQuery {
   }
   async fetchOrder(userId){
       // const fetchAllorders=await orderModel.find({customerId:userId})
-      console.log(userId,"this is userId")
       const fetchAllorders=await orderModel.aggregate([
         {$match:{customerId: mongoose.Types.ObjectId(userId)}},
         {$lookup:{
@@ -56,7 +55,6 @@ class orderQuery {
       
         
       ])
-      console.log(fetchAllorders,"thid is all orders")
       return fetchAllorders
   }
   async placed_order(userId,productId,productPrice){
