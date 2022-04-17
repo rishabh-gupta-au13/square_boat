@@ -34,7 +34,7 @@ class orderQuery {
         const trackOrder = await orderModel.find({
             $and: [{ customerId: userId }, { _id: orderId }],
           });
-          console.log(trackOrder,"============================================")
+          // console.log(trackOrder,"============================================")
           return trackOrder
     }
    
