@@ -57,7 +57,7 @@ const {
         const token=jwt.sign(
             {userId:checkEmail[0]._id},
             appConfig.jwtSecret,
-            {expiresIn:"1h"}
+            {expiresIn:"24h"}
         )
         let result={
             message:"Login Sucessfully",

@@ -8,7 +8,7 @@ class orderController {
     try {
       const token = req.headers.authorization;
       const userId = await get_userId.extractUserId(token);
-    //   console.log(userId.userId, "this is userId ===========================");
+      //   console.log(userId.userId, "this is userId ===========================");
       const orderId = uuidv4();
       //   console.log(orderId)
       //   console.log(req.body.productDetails)
@@ -43,23 +43,49 @@ class orderController {
         let message = errorMessages.notcorrectOrderId;
         return clientError(req, res, message);
       }
-      return reply(req,res,trackOrderId)
+      return reply(req, res, trackOrderId);
     } catch (err) {
       console.log(err);
       return serverError(req, res, err);
     }
   }
-  async getAllorder(req,res){
-      let token=req.headers.authorization;
-      let userId=await get_userId.extractUserId(token);
-    //   Now fetch all the orders with this user id
-    let fetchallorders=await orderQuery.fetchOrder(userId.userId)
-    if(fetchallorders.lenght==0){
-        let message=errorMessages.noOrderExists;
-        return reply(req,res,message)
+  async getAllorder(req, res) {
+    try {
+      let token = req.headers.authorization;
+      let userId = await get_userId.extractUserId(token);
+      //   Now fetch all the orders with this user id
+      let fetchallorders = await orderQuery.fetchOrder(userId.userId);
+      if (fetchallorders.lenght == 0) {
+        let message = errorMessages.noOrderExists;
+        return reply(req, res, message);
+      }
+
+      return reply(req, res, fetchallorders);
+    } catch (err) {
+      console.log(err);
     }
-    
-    return reply(req,res,fetchallorders)
+  }
+  async placedOrders(req, res) {
+    try {
+      const token = req.headers.authorization;
+      const userId = await get_userId.extractUserId(token);
+      let productId = req.body.productId;
+      let productPrice = req.body.price;
+      let saveOrders = await orderQuery.placed_order(
+        userId.userId,
+        productId,
+        productPrice
+      );
+      let message = {
+        message: "Order Placed Sucessfully",
+        orderId: saveOrders._id,
+      };
+
+      return reply(req, res, message);
+    } catch (err) {
+      console.log(err);
+      return serverError(req, res, err);
+    }
   }
 }
 

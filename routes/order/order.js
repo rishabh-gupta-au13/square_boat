@@ -8,6 +8,7 @@ const profileValidator=require("../../middleware/validation/order/order");
 app.post("/placeOrder",validateJwtToken,orderController.placeOrder);
 app.get("/trackOrder",validateJwtToken,orderController.trackOrder);
 app.get("/allOrders",validateJwtToken,orderController.getAllorder);
+app.post("/placedOrders",validateJwtToken,orderController.placedOrders)
 
 
 

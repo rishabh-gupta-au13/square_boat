@@ -1,6 +1,6 @@
 const orderModel = require("../models/order");
 const mongoose=require('mongoose')
-const ObjectId=require('mongoose').ObjectId
+// const ObjectId=require('mongoose').ObjectId
 
 class orderQuery {
   async place_Order(productDetails) {
@@ -43,6 +43,26 @@ class orderQuery {
   async fetchOrder(userId){
       const fetchAllorders=await orderModel.find({customerId:userId})
       return fetchAllorders
+  }
+  async placed_order(userId,productId,productPrice){
+    try {
+        console.log(productId,"this is product id")
+    let productsId=mongoose.Types.ObjectId(productId)
+    console.log(productsId,"this is products id")
+
+        const order = new orderModel({
+          customerId: userId,
+          productDetails: [{
+              productId:productsId
+          }],
+          totalInvoice: productPrice,
+        });
+        let saveOrder = await order.save();
+        return saveOrder;
+      } catch (err) {
+        console.log(err);
+      }
+
   }
 }
 
